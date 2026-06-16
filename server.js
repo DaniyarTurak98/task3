@@ -3,9 +3,14 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+const normalize = (value) => {
+    if (typeof value !== "string") return NaN;
+    return Number(value.replace(/[{}]/g, ""));
+};
+
 app.get("/daniyarturak_gmail_com", (req, res) => {
-    const x = Number(req.query.x);
-    const y = Number(req.query.y);
+    const x = normalize(req.query.x);
+    const y = normalize(req.query.y);
 
     if (!Number.isInteger(x) || !Number.isInteger(y) || x <= 0 || y <= 0) {
         return res.send("NaN");
